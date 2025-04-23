@@ -14,7 +14,7 @@ def git_update():
 ##############################
 @get("/")
 def _():
-  return "two"
+  return "Hej venner, kan i læse det her tekst?"
  
 ##############################
 try:

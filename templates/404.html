@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-
-{% block title %}404 – {{ get_text('title') }}{% endblock %}
-
-{% block content %}
-    <h2>404 – Siden blev ikke fundet</h2>
-    <p>Vi kunne ikke finde den side, du ledte efter.</p>
-    <p><a href="/{{ session.get('lang', 'da') }}/">Til forsiden</a></p>
-{% endblock %}

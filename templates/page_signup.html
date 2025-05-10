@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<main id="signup" class="page">
+  <h1>{{ get_text("signup") }}</h1>
+
+  {% if error_message %}
+    <div class="error">{{ error_message }}</div>
+  {% endif %}
+
+  <form
+    action="{{ url_for('signup', lang=lang) }}"
+    method="POST"
+  >
+    <div>
+      <label for="user_username">
+        {{ get_text("username") }}
+        ({{ x.USER_USERNAME_MIN }}-{{ x.USER_USERNAME_MAX }})
+      </label>
+      <input
+        name="user_username"
+        type="text"
+        required
+        minlength="{{ x.USER_USERNAME_MIN }}"
+        maxlength="{{ x.USER_USERNAME_MAX }}"
+        pattern="{{ x.USER_USERNAME_REGEX }}"
+        value="{{ old_values.get('user_username','') }}"
+      >
+    </div>
+
+    <div>
+      <label for="user_name">
+        {{ get_text("first_name") }}
+        ({{ x.USER_NAME_MIN }}-{{ x.USER_NAME_MAX }})
+      </label>
+      <input
+        name="user_name"
+        type="text"
+        required
+        minlength="{{ x.USER_NAME_MIN }}"
+        maxlength="{{ x.USER_NAME_MAX }}"
+        pattern="{{ x.USER_NAME_REGEX }}"
+        value="{{ old_values.get('user_name','') }}"
+      >
+    </div>
+
+    <div>
+      <label for="user_last_name">
+        {{ get_text("last_name") }}
+        ({{ x.USER_LAST_NAME_MIN }}-{{ x.USER_LAST_NAME_MAX }})
+      </label>
+      <input
+        name="user_last_name"
+        type="text"
+        required
+        minlength="{{ x.USER_LAST_NAME_MIN }}"
+        maxlength="{{ x.USER_LAST_NAME_MAX }}"
+        pattern="{{ x.USER_LAST_NAME_REGEX }}"
+        value="{{ old_values.get('user_last_name','') }}"
+      >
+    </div>
+
+    <div>
+      <label for="user_email">{{ get_text("email") }}</label>
+      <input
+        name="user_email"
+        type="email"
+        required
+        pattern="{{ x.USER_EMAIL_REGEX }}"
+        value="{{ old_values.get('user_email','') }}"
+      >
+    </div>
+
+    <div>
+      <label for="user_password">
+        {{ get_text("password") }}
+        ({{ x.USER_PASSWORD_MIN }}-{{ x.USER_PASSWORD_MAX }})
+      </label>
+      <input
+        name="user_password"
+        id="user_password"
+        type="password"
+        required
+        minlength="{{ x.USER_PASSWORD_MIN }}"
+        maxlength="{{ x.USER_PASSWORD_MAX }}"
+        pattern="{{ x.USER_PASSWORD_REGEX }}"
+      >
+    </div>
+
+    <p class="form-note">
+      {{ get_text("already_have_account") }}
+      <a href="{{ url_for('show_login', lang=lang) }}">
+        {{ get_text("login") }}
+      </a>
+    </p>
+
+    <button type="submit">{{ get_text("signup") }}</button>
+  </form>
+</main>
+{% endblock %}

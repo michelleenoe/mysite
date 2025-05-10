@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% import "_components.html" as ui %}
+
+{% block title %}{{ get_text("admin_users") }}{% endblock %}
+
+{% block content %}
+
+  <section class="profile-overview mb-8">
+    <h2 class="heading">{{ get_text("your_profile") }}</h2>
+    <div class="profile-details">
+      <p><strong>{{ get_text("username") }}:</strong> {{ session.user.user_username }}</p>
+      <p><strong>{{ get_text("email") }}:</strong> {{ session.user.user_email }}</p>
+      <p><strong>{{ get_text("role") }}:</strong> {{ session.user.user_role }}</p>
+    </div>
+    <hr class="my-6">
+  </section>
+
+  <!-- ========== All Users List ========== -->
+  <section class="admin-users">
+    <h2 class="heading">{{ get_text("all_users") }}</h2>
+
+    <div class="table-actions mb-4">
+      <input
+        type="search"
+        id="user-search"
+        class="input"
+        placeholder="{{ get_text('search') }}…"
+      >
+    </div>
+
+    <div class="table-wrapper">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>{{ get_text("username") }}</th>
+            <th>{{ get_text("email") }}</th>
+            <th>{{ get_text("role") }}</th>
+            <th>{{ get_text("verified") }}</th>
+            <th>{{ get_text("status") }}</th>
+            <th>{{ get_text("actions") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.user_username }}</td>
+            <td>{{ user.user_email }}</td>
+            <td>{{ user.user_role }}</td>
+            <td>
+              {% if user.user_is_verified %}
+                <span class="badge success">{{ get_text("yes") }}</span>
+              {% else %}
+                <span class="badge muted">{{ get_text("no") }}</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if user.user_blocked_at %}
+                <span class="badge danger">{{ get_text("blocked") }}</span>
+              {% else %}
+                <span class="badge success">{{ get_text("active") }}</span>
+              {% endif %}
+            </td>
+            <td class="actions">
+              {% if user.user_blocked_at %}
+                <form
+                  action="{{ url_for('unblock_user', lang=session.lang, pk=user.user_pk) }}"
+                  method="post"
+                  style="display:inline-block"
+                  onsubmit="return confirm('{{ get_text('confirm_unblock') }}')"
+                >
+                  <button type="submit" class="btn small">{{ get_text("unblock") }}</button>
+                </form>
+              {% else %}
+                <form
+                  action="{{ url_for('block_user', lang=session.lang, pk=user.user_pk) }}"
+                  method="post"
+                  style="display:inline-block"
+                  onsubmit="return confirm('{{ get_text('confirm_block') }}')"
+                >
+                  <button type="submit" class="btn small danger">{{ get_text("block") }}</button>
+                </form>
+              {% endif %}
+
+              <form
+                action="{{ url_for('admin_delete_user', lang=session.lang, pk=user.user_pk) }}"
+                method="post"
+                style="display:inline-block"
+                onsubmit="return confirm('{{ get_text('confirm_delete') }}')"
+              >
+                <button type="submit" class="btn small danger">{{ get_text("delete") }}</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+{% endblock %}

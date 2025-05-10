@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ session.lang }}">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{{ get_text("title") }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/variables.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidemenu.css') }}">
+</head>
+<body>
+  {% include "header.html" %}
+
+  <div class="layout">
+    {% if session.user and request.endpoint in [
+        'profile','add_item','edit_profile','change_pw',
+        'request_delete_profile','admin_dashboard', 'admin_list_items', 'admin_list_users'
+      ] %}
+      <aside class="side-menu">
+        {% include "_sidemenu.html" %}
+      </aside>
+    {% endif %}
+
+    <main class="page-content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

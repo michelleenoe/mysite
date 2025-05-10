@@ -1,0 +1,27 @@
+{%- macro metric_card(value, label) -%}
+<div class="metric-card">
+  <h3>{{ value }}</h3>
+  <p>{{ label }}</p>
+</div>
+{%- endmacro -%}
+
+{%- macro action_card(url, title, desc) -%}
+<a href="{{ url }}" class="action-card">
+  <h4>{{ title }}</h4>
+  <p>{{ desc }}</p>
+</a>
+{%- endmacro -%}
+
+{%- macro item_card(name, img, price) -%}
+<article class="item-card">
+  <h3 class="item-title">{{ name }}</h3>
+  {% if img %}
+    <img class="item-thumb" src="{{ url_for('static', filename='uploads/' ~ img) }}" alt="">
+  {% else %}
+    <div class="item-thumb placeholder">{{ ('no_image') }}</div>
+  {% endif %}
+  {% if price %}
+    <p class="item-price">{{ price }}</p>
+  {% endif %}
+</article>
+{%- endmacro -%}

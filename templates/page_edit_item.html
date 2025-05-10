@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}{{ get_text("edit_item") }}{% endblock %}
+
+{% block content %}
+<section class="edit-item">
+  <h1>{{ get_text("edit_item") }}</h1>
+
+  <form class="form-grid" method="post" action="{% if admin_view %}
+                   {{ url_for('admin_save_edited_item', lang=session.lang, pk=item.item_pk) }}
+                 {% else %}
+                   {{ url_for('save_edited_item',       lang=session.lang, pk=item.item_pk) }}
+                 {% endif %}" enctype="multipart/form-data">
+
+    {# Navn #}
+    <div class="form-group">
+      <label for="name">{{ get_text("name") }}</label>
+      <input id="name" name="name" type="text" value="{{ item.item_name }}" required>
+    </div>
+
+    {# Adresse #}
+    <div class="form-group">
+      <label for="address">{{ get_text("address") }}</label>
+      <input id="address" name="address" type="text" value="{{ item.item_address }}" required>
+    </div>
+
+    {# Latitude & Longitude #}
+    <div class="form-group two-cols">
+      <div>
+        <label for="lat">{{ get_text("latitude") }}</label>
+        <input id="lat" name="lat" type="number" step="any" value="{{ item.item_lat }}" required>
+      </div>
+      <div>
+        <label for="lon">{{ get_text("longitude") }}</label>
+        <input id="lon" name="lon" type="number" step="any" value="{{ item.item_lon }}" required>
+      </div>
+    </div>
+
+    {# Beskrivelse #}
+    <div class="form-group">
+      <label for="description">{{ get_text("description") }}</label>
+      <textarea id="description" name="description" rows="4" required>{{ item.item_description }}</textarea>
+    </div>
+
+    {# Pris #}
+    <div class="form-group">
+      <label for="price">{{ get_text("price") }}</label>
+      <input id="price" name="price" type="number" step="0.01" value="{{ item.item_price }}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="item_images">{{ get_text("images") }}</label>
+      <input id="images" name="files" type="file" multiple accept="image/*">
+      
+      <small>{{ get_text("edit_images_hint") }}</small>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn small primary">
+        {{ get_text("save_changes") }}
+      </button>
+    </div>
+  </form>
+</section>
+{% endblock %}

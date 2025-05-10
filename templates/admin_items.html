@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}{{ get_text("admin_items") }}{% endblock %}
+
+{% block content %}
+<section class="admin-dashboard">
+
+  <h1 class="mb-4">{{ get_text("admin_items") }}</h1>
+
+  <div class="table-wrapper">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>{{ get_text("name") }}</th>
+          <th>{{ get_text("owner_email") }}</th>
+          <th>{{ get_text("created_at") }}</th>
+          <th>{{ get_text("actions") }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.item_name }}</td>
+          <td>{{ item.item_user_email or "-" }}</td>
+          <td class="created-at">{{ item.item_created_at }}</td>
+          <td class="actions">
+            <a href="{{ url_for('admin_edit_item', lang=session.lang, pk=item.item_pk) }}"
+               class="btn small">{{ get_text("edit") }}</a>
+
+            <form action="{{ url_for('admin_delete_item', lang=session.lang, pk=item.item_pk) }}"
+                  method="post" style="display:inline-block"
+                  onsubmit="return confirm('{{ get_text("confirm_delete") }}');">
+              <button type="submit" class="btn small danger">
+                {{ get_text("delete") }}
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<script src="{{ url_for('static', filename='scripts/admin_items.js') }}"></script>
+{% endblock %}

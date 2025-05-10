@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "_components.html" as ui %}
+{% block title %}{{ get_text("admin_dashboard_title") }}{% endblock %}
+
+{% block content %}
+  <section class="dashboard">
+    <h2>{{ get_text("admin_dashboard_title") }}</h2>
+
+    <div class="dashboard-metrics">
+      {{ ui.metric_card(total_users,           get_text("total_users")) }}
+      {{ ui.metric_card(active_items,          get_text("active_markets")) }}
+      {{ ui.metric_card(pending_verifications, get_text("pending_verifications")) }}
+    </div>
+
+    <div class="dashboard-actions">
+      {{ ui.action_card(
+            url_for('admin_list_users', lang=session.lang),
+            get_text("users"),
+            get_text("manage_users_desc")
+         ) }}
+      {{ ui.action_card(
+            url_for('admin_list_items', lang=session.lang),
+            get_text("items"),
+            get_text("manage_items_desc")
+         ) }}
+    </div>
+  </section>
+{% endblock %}

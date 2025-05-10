@@ -1,0 +1,25 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a href="{{ url_for('page_index', lang=session.get('lang', 'da')) }}" class="logo">LoppePusher</a>
+
+    <nav class="main-nav">
+      {% if session.get('user') %}
+        {% if session.get('user')['user_role'] == 'admin' %}
+          <a href="{{ url_for('profile', lang=session.get('lang', 'da')) }}">Admin Dashboard</a>
+        {% else %}
+          <a href="{{ url_for('add_item', lang=session.get('lang', 'da')) }}">Nyt loppemarked</a>
+          <a href="{{ url_for('profile', lang=session.get('lang', 'da')) }}">Min profil</a>
+        {% endif %}
+        <a href="{{ url_for('logout', lang=session.get('lang', 'da')) }}">Log ud</a>
+      {% else %}
+        <a href="{{ url_for('login', lang=session.get('lang', 'da')) }}">Login</a>
+        <a href="{{ url_for('signup', lang=session.get('lang', 'da')) }}">Opret bruger</a>
+      {% endif %}
+    </nav>
+
+    <div class="lang-switch">
+      <a href="{{ url_for('page_index', lang='da') }}">🇩🇰</a>
+      <a href="{{ url_for('page_index', lang='en') }}">🇬🇧</a>
+    </div>
+  </div>
+</header>

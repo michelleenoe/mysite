@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <h1>{{ get_text("reset") }}</h1>
+  {% for cat, msg in get_flashed_messages(with_categories=true) %}
+    <div class="{{ cat }}">{{ msg }}</div>
+  {% endfor %}
+  <form method="POST">
+    <div>
+      <label for="user_password">{{ get_text("new_password") }}</label>
+      <input id="user_password" name="user_password" type="password" required>
+    </div>
+    <div>
+      <label for="user_password_confirm">{{ get_text("confirm_password") }}</label>
+      <input id="user_password_confirm" name="user_password_confirm" type="password" required>
+    </div>
+    <button type="submit">{{ get_text("reset") }}</button>
+  </form>
+</main>
+{% endblock %}

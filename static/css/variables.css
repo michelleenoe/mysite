@@ -1,0 +1,16 @@
+:root {
+    --color-bg: #f8f7f4;
+    --color-dark: #1a1a27;
+    --color-muted: #a8b0b7;
+    --color-orange: #ff5c00;
+    --font-family: "Inter", "Helvetica Neue", sans-serif;
+    --font-size-base: 16px;
+    --font-size-heading: 2rem;
+    --font-size-subheading: 1.25rem;
+    --radius: 6px;
+    --spacing-xs: 0.5rem;
+    --spacing-s: 1rem;
+    --spacing-m: 2rem;
+    --spacing-l: 4rem;
+  }
+  
